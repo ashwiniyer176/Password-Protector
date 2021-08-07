@@ -8,11 +8,21 @@ h2{
     padding: 5px;
 }
 
-.navbar-brand{
-    color: white;
+table,tr,th,td{
+    border: solid 2px black;
 }
 
 nav{
     padding: 10px;
     height: 80px;
+}
+
+/* Classes */
+
+.right-align{
+    background-color: aquamarine;
+}
+
+#navbar{
+    background-color: red;
 }

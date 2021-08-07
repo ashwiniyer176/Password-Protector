@@ -8,7 +8,27 @@
 {% block content %}
     {% if user.is_authenticated %}
       Hi, {{ user.username }}!!
-      <a href="{% url 'logout' %}">Click here to Log Out</a>
+      <table>
+        <tr>
+          <th>Website</th>
+          <th>User Name</th>
+          <th>Password</th>
+        </tr>
+        {% for item in data %}
+          <tr>
+            <td>
+              <a href="{{item.websiteLink}}">{{ item.websiteName }}</a>
+            </td>
+            <td>
+              {{ item.userName }}
+            </td>
+            <td>
+              {{ item.passwordSaved }}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+        
     {% else %}
     <p>You are not logged in</p>
     <a href="{% url 'login' %}">Click Here to Login</a>

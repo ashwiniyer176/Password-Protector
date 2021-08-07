@@ -13,7 +13,16 @@
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+          <a class="navbar-brand" href="{% url 'manager:home' %}">Password Protector</a>
+          <div class="right-align" id="navbar">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'manager:newPassword' %}">New Password</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+              </li>
+          </div>
+
         </div>
     </nav>
       
