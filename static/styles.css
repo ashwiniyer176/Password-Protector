@@ -1,0 +1,18 @@
+form{
+    border: 2px solid gray;
+    margin: 10px 10em;
+    padding: 10px;
+}
+
+h2{
+    padding: 5px;
+}
+
+.navbar-brand{
+    color: white;
+}
+
+nav{
+    padding: 10px;
+    height: 80px;
+}
