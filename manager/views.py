@@ -1,5 +1,5 @@
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
@@ -54,3 +54,18 @@ def addNewPassword(request):
     else:
         form = PasswordModelForm()
         return render(request, "manager/newPassword.html", {"form": form})
+
+
+@login_required(login_url="/accounts/login/")
+def editPassword(request, itemID):
+    passwordObject = PasswordModel.objects.get(pk=itemID)
+
+    passwordObject.passwordSaved = decrypt(passwordObject.passwordSaved)
+    if(request.method == "GET"):
+        form = PasswordModelForm(instance=passwordObject)
+        return render(request, "manager/newPassword.html", {"form": form})
+    elif(request.method == "POST"):
+        form = PasswordModelForm(request.POST, instance=passwordObject)
+        if(form.is_valid()):
+            form.save()
+            return HttpResponseRedirect(reverse('manager:home'))
