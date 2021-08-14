@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,12 +15,13 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'manager:home' %}">Password Protector</a>
           <div class="right-align" id="navbar">
-            <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'manager:newPassword' %}">New Password</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
               </li>
+
           </div>
 
         </div>
@@ -28,5 +29,10 @@
       
     {% block content %}
     {% endblock content %}
+    <footer class="text-center text-lg-start bg-dark text-light">
+      <div class="center-align">
+        <h3>By Ashwin Iyer</h3>
+      </div>
+    </footer>
 </body>
 </html>

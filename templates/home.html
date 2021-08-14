@@ -7,12 +7,15 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-      Hi, {{ user.username }}!!
+    <div class="center-align">
+      <br>
+     <h1>Hi, {{ user.username }}!!</h1> 
       <table>
         <tr>
           <th>Website</th>
           <th>User Name</th>
           <th>Password</th>
+          <th>Edit</th>
         </tr>
         {% for item in data %}
           <tr>
@@ -25,6 +28,9 @@
             <td>
               {{ item.passwordSaved }}
             </td>
+            <td>
+              <a href="{% url 'manager:editPassword' item.id%}">Edit</a>
+            </td>
           </tr>
         {% endfor %}
       </table>
@@ -33,5 +39,6 @@
     <p>You are not logged in</p>
     <a href="{% url 'login' %}">Click Here to Login</a>
     {% endif %}
+  </div>
 {% endblock content %}
     
