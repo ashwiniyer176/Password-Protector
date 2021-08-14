@@ -10,34 +10,12 @@ from .models import PasswordModel
 # Create your views here.
 
 
-def encrypt(plainText):
-    """
-    Standard Caesar Cipher Implementation
-    """
-    cipherText = ""
-    for char in plainText:
-        cipherText += chr(ord(char)+STANDARD_OFFSET)
-    return cipherText
-
-
-def decrypt(cipherText):
-    """
-    Decrypt Caesar Cipher
-    """
-    plainText = ""
-    for char in cipherText:
-        plainText += chr(ord(char)-STANDARD_OFFSET)
-    return plainText
-
-
 @login_required(login_url="/accounts/login/")
 def showData(request):
     """
     View that shows user's created passwords
     """
     data = PasswordModel.objects.filter(user=request.user)
-    for dataObject in data:
-        dataObject.passwordSaved = decrypt(dataObject.passwordSaved)
     return render(request, 'home.html', {'data': data})
 
 
@@ -48,7 +26,6 @@ def addNewPassword(request):
         if(form.is_valid()):
             instance = form.save(commit=False)
             instance.user = request.user
-            instance.passwordSaved = encrypt(instance.passwordSaved)
             instance.save()
             return HttpResponseRedirect(reverse('manager:home'))
     else:
@@ -58,14 +35,11 @@ def addNewPassword(request):
 
 @login_required(login_url="/accounts/login/")
 def editPassword(request, itemID):
-    passwordObject = PasswordModel.objects.get(pk=itemID)
-
-    passwordObject.passwordSaved = decrypt(passwordObject.passwordSaved)
-    if(request.method == "GET"):
-        form = PasswordModelForm(instance=passwordObject)
-        return render(request, "manager/newPassword.html", {"form": form})
-    elif(request.method == "POST"):
+    passwordObject = PasswordModel.objects.get(id=itemID)
+    form = PasswordModelForm(instance=passwordObject)
+    if(request.method == "POST"):
         form = PasswordModelForm(request.POST, instance=passwordObject)
         if(form.is_valid()):
             form.save()
             return HttpResponseRedirect(reverse('manager:home'))
+    return render(request, "manager/editPassword.html", {"form": form, "itemID": itemID})
