@@ -16,6 +16,7 @@
           <th>User Name</th>
           <th>Password</th>
           <th>Edit</th>
+          <th>Delete</th>
         </tr>
         {% for item in data %}
           <tr>
@@ -30,6 +31,9 @@
             </td>
             <td>
               <a href="{% url 'manager:editPassword' item.id%}">Edit</a>
+            </td>
+            <td>
+              <a href="{% url 'manager:deletePassword' item.id%}">Delete</a>
             </td>
           </tr>
         {% endfor %}

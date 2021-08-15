@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import showData, addNewPassword, editPassword
+from manager import views
 
 app_name = "manager"
 urlpatterns = [
-    path("", showData, name="home"),
-    path("newPassword/", addNewPassword, name="newPassword"),
-    path('editPassword/<int:itemID>/', editPassword, name="editPassword")
+    path("", views.showData, name="home"),
+    path("newPassword/", views.addNewPassword, name="newPassword"),
+    path('editPassword/<int:itemID>/', views.editPassword, name="editPassword"),
+    path('deletePassword/<int:itemID>',
+         views.deletePassword, name="deletePassword")
 ]

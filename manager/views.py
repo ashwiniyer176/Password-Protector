@@ -1,11 +1,10 @@
-from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-
+from django.contrib.auth.hashers import make_password
 
 from .forms import PasswordModelForm
-from manager.config import STANDARD_OFFSET
 from .models import PasswordModel
 # Create your views here.
 
@@ -40,6 +39,14 @@ def editPassword(request, itemID):
     if(request.method == "POST"):
         form = PasswordModelForm(request.POST, instance=passwordObject)
         if(form.is_valid()):
-            form.save()
+            instance = form.save(commit=False)
+            instance.save()
             return HttpResponseRedirect(reverse('manager:home'))
-    return render(request, "manager/editPassword.html", {"form": form, "itemID": itemID})
+    return render(request, "manager/newPassword.html", {"form": form, "itemID": itemID})
+
+
+@login_required(login_url="/accounts/login")
+def deletePassword(request, itemID):
+    instance = PasswordModel.objects.get(id=itemID)
+    instance.delete()
+    return HttpResponseRedirect(reverse("manager:home"))
