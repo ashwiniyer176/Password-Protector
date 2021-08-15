@@ -25,13 +25,13 @@ def addNewPassword(request):
         if(form.is_valid()):
             instance = form.save(commit=False)
             instance.user = request.user
-            # similarInstances = PasswordModel.objects.filter(
-            #     websiteName=instance.websiteName, passwordSaved=instance.passwordSaved, user=instance.user)
-            # if(len(similarInstances) == 0):
-            instance.save()
-            return HttpResponseRedirect(reverse('manager:home'))
-            # else:
-            #     return HttpResponse("Cannot add 2 same objects")
+            similarInstances = PasswordModel.objects.filter(
+                websiteName=instance.websiteName, passwordSaved=instance.passwordSaved, user=instance.user)
+            if(len(similarInstances) == 0):
+                instance.save()
+                return HttpResponseRedirect(reverse('manager:home'))
+            else:
+                return render(request, 'manager/newPassword.html', {'error_message': "You cannot have same type of object", "form": form})
     else:
         form = PasswordModelForm()
         return render(request, "manager/newPassword.html", {"form": form})

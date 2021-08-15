@@ -27,6 +27,7 @@ class PasswordModelTests(TestCase):
             "passwordSaved": "123",
             "user": user
         }
+
         response = self.client.post(
             reverse('manager:newPassword'), items, follow=True)
         response2 = self.client.post(
@@ -38,4 +39,4 @@ class PasswordModelTests(TestCase):
                                              passwordSaved=items["passwordSaved"],
                                              user=items["user"])
         print(query)
-        self.assertTrue(len(query) == 2)
+        self.assertTrue(len(query) <= 1)
