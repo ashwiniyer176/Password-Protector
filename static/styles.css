@@ -42,6 +42,10 @@ input{
     width: auto;
 }
 
+h5{
+    color: red;
+}
+
 button{
     margin: 10px;
 }

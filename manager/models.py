@@ -10,6 +10,3 @@ class PasswordModel(models.Model):
     userName = models.CharField("User Name", max_length=20)
     passwordSaved = models.CharField("Password", max_length=25)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=CASCADE)
-
-    def __str__(self):
-        return self.passwordSaved
